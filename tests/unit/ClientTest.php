@@ -1,8 +1,6 @@
 <?php
 namespace AmazonAdvertisingApi;
 
-require_once "../AmazonAdvertisingApi/Client.php";
-
 class ClientTest extends \PHPUnit\Framework\TestCase
 {
     private $client = null;
@@ -24,7 +22,7 @@ class ClientTest extends \PHPUnit\Framework\TestCase
             "requestId" => "test",
             "response" => "SUCCESS");
 
-        $this->client = $this->getMockBuilder("AmazonAdvertisingApi\Client")
+        $this->client = $this->getMockBuilder("\AmazonAdvertisingApi\Client")
                              ->setConstructorArgs(array($this->config))
                              ->setMethods(array("_executeRequest"))
                              ->getMock();

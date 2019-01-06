@@ -1,10 +1,6 @@
 <?php
 namespace AmazonAdvertisingApi;
 
-require_once "Versions.php";
-require_once "Regions.php";
-require_once "CurlRequest.php";
-
 class Client
 {
     private $config = array(
