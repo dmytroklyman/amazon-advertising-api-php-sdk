@@ -3,13 +3,14 @@ namespace AmazonAdvertisingApi;
 
 class Client
 {
-    private $config = array(
-        "clientId" => null,
+    private $config = [
+        "clientId"     => null,
         "clientSecret" => null,
-        "region" => null,
-        "accessToken" => null,
+        "region"       => null,
+        "accessToken"  => null,
         "refreshToken" => null,
-        "sandbox" => false);
+        "sandbox"      => false
+    ];
 
     private $apiVersion = null;
     private $applicationVersion = null;
@@ -46,18 +47,19 @@ class Client
 
     public function doRefreshToken()
     {
-        $headers = array(
+        $headers = [
             "Content-Type: application/x-www-form-urlencoded;charset=UTF-8",
             "User-Agent: {$this->userAgent}"
-        );
+        ];
 
         $refresh_token = rawurldecode($this->config["refreshToken"]);
 
-        $params = array(
+        $params = [
             "grant_type" => "refresh_token",
             "refresh_token" => $refresh_token,
             "client_id" => $this->config["clientId"],
-            "client_secret" => $this->config["clientSecret"]);
+            "client_secret" => $this->config["clientSecret"]
+        ];
 
         $data = "";
         foreach ($params as $k => $v) {
@@ -332,9 +334,10 @@ class Client
 
     public function bulkGetKeywordBidRecommendations($adGroupId, $data)
     {
-        $data = array(
+        $data = [
             "adGroupId" => $adGroupId,
-            "keywords" => $data);
+            "keywords"  => $data
+        ];
         return $this->_operation("keywords/bidRecommendations", $data, "POST");
     }
 
@@ -400,7 +403,7 @@ class Client
 
     private function _download($location, $gunzip = false)
     {
-        $headers = array();
+        $headers = [];
 
         if (!$gunzip) {
             /* only send authorization header when not downloading actual file */
@@ -425,13 +428,13 @@ class Client
         return $this->_executeRequest($request);
     }
 
-    private function _operation($interface, $params = array(), $method = "GET")
+    private function _operation($interface, $params = [], $method = "GET")
     {
-        $headers = array(
+        $headers = [
             "Authorization: bearer {$this->config["accessToken"]}",
             "Content-Type: application/json",
             "User-Agent: {$this->userAgent}"
-        );
+        ];
 
         if (!is_null($this->profileId)) {
             array_push($headers, "Amazon-Advertising-API-Scope: {$this->profileId}");
@@ -492,15 +495,19 @@ class Client
                     $requestId = json_decode($response, true)["requestId"];
                 }
             }
-            return array("success" => false,
-                    "code" => $response_info["http_code"],
-                    "response" => $response,
-                    "requestId" => $requestId);
+            return [
+                "success"   => false,
+                "code"      => $response_info["http_code"],
+                "response"  => $response,
+                "requestId" => $requestId
+            ];
         } else {
-            return array("success" => true,
-                    "code" => $response_info["http_code"],
-                    "response" => $response,
-                    "requestId" => $this->requestId);
+            return [
+                "success"   => true,
+                "code"      => $response_info["http_code"],
+                "response"  => $response,
+                "requestId" => $this->requestId
+            ];
         }
     }
 

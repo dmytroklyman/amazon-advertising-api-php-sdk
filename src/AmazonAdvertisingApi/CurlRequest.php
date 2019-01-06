@@ -22,7 +22,7 @@ class CurlRequest
         if (defined("CURLOPT_IPRESOLVE")) {
             curl_setopt($this->handle, CURLOPT_IPRESOLVE, CURL_IPRESOLVE_V4);
         }
-        curl_setopt($this->handle, CURLOPT_HEADERFUNCTION, array($this, "_handleHeaderLine"));
+        curl_setopt($this->handle, CURLOPT_HEADERFUNCTION, [$this, "_handleHeaderLine"]);
     }
 
     public function setOption($name, $value)
@@ -52,7 +52,7 @@ class CurlRequest
 
     private function _handleHeaderLine($ch, $line)
     {
-        $matches = array();
+        $matches = [];
         if (preg_match("/x-amz-request-id:\ \S+/", $line)) {
             preg_match_all("/[^\ ]\S+/", $line, $matches);
             if (count($matches) > 0) {

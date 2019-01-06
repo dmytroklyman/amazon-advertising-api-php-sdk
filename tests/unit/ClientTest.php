@@ -5,26 +5,27 @@ class ClientTest extends \PHPUnit\Framework\TestCase
 {
     private $client = null;
     private $return_value = null;
-    private $config = array(
-        "clientId" => "amzn1.application-oa2-client.xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx",
+    private $config = [
+        "clientId"     => "amzn1.application-oa2-client.xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx",
         "clientSecret" => "xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx",
-        "region" => "na",
-        "accessToken" => "Atza%7Ctest",
+        "region"       => \AmazonAdvertisingApi\Regions::NORTH_AMERICA,
+        "accessToken"  => "Atza%7Ctest",
         "refreshToken" => "Atzr%7Ctest",
-        "sandbox" => true);
-
+        "sandbox"      => true
+    ];
 
     public function setUp()
     {
-        $this->return_value = array(
+        $this->return_value = [
             "code" => "200",
             "success" => true,
             "requestId" => "test",
-            "response" => "SUCCESS");
+            "response" => "SUCCESS"
+        ];
 
         $this->client = $this->getMockBuilder("\AmazonAdvertisingApi\Client")
-                             ->setConstructorArgs(array($this->config))
-                             ->setMethods(array("_executeRequest"))
+                             ->setConstructorArgs([$this->config])
+                             ->setMethods(["_executeRequest"])
                              ->getMock();
 
         $this->client->expects($this->any())
@@ -384,28 +385,34 @@ class ClientTest extends \PHPUnit\Framework\TestCase
     public function testGetAdGroupKeywordSuggestions()
     {
         $request = $this->client->getAdGroupKeywordSuggestions(
-            array("adGroupId" => 12345));
+            ["adGroupId" => 12345]
+        );
         $this->assertEquals($this->return_value, $request);
     }
 
     public function testGetAdGroupKeywordSuggestionsEx()
     {
         $request = $this->client->getAdGroupKeywordSuggestionsEx(
-            array("adGroupId" => 12345));
+            ["adGroupId" => 12345]
+        );
         $this->assertEquals($this->return_value, $request);
     }
 
     public function testGetAsinKeywordSuggestions()
     {
         $request = $this->client->getAsinKeywordSuggestions(
-            array("asin" => 12345));
+            ["asin" => 12345]
+        );
         $this->assertEquals($this->return_value, $request);
     }
 
     public function testBulkGetAsinKeywordSuggestions()
     {
         $request = $this->client->bulkGetAsinKeywordSuggestions(
-            array("asins" => array("ASIN1", "ASIN2")));
+            [
+                "asins" => ["ASIN1", "ASIN2"]
+            ]
+        );
         $this->assertEquals($this->return_value, $request);
     }
 
