@@ -459,7 +459,11 @@ class Client
             case "post":
             case "delete":
                 if (!empty($params)) {
-                    $data = json_encode($params);
+                    if (is_string($params)) {
+                        $data = $params;
+                    } else {
+                        $data = json_encode($params);
+                    }
                     $request->setOption(CURLOPT_POST, true);
                     $request->setOption(CURLOPT_POSTFIELDS, $data);
                 }
