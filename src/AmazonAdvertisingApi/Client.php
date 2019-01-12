@@ -45,6 +45,53 @@ class Client
         }
     }
 
+    /**
+     * @param array $params     Parameters for the request.
+     *                          'code' and 'redirect_uri' are required
+     * @return array
+     */
+    public function doAccessToken($params)
+    {
+        $headers = [
+            "Content-Type: application/x-www-form-urlencoded;charset=UTF-8",
+            "User-Agent: {$this->userAgent}"
+        ];
+
+        $params = [
+            "grant_type"    => "authorization_code",
+            "code"          => $params['code'],
+            "redirect_uri"  => $params['redirect_uri'],
+            "client_id"     => $this->config["clientId"],
+            "client_secret" => $this->config["clientSecret"]
+        ];
+
+        $data = "";
+        foreach ($params as $k => $v) {
+            $data .= "{$k}=".rawurlencode($v)."&";
+        }
+
+        $url = "https://{$this->tokenUrl}";
+
+        $request = new CurlRequest();
+        $request->setOption(CURLOPT_URL, $url);
+        $request->setOption(CURLOPT_HTTPHEADER, $headers);
+        $request->setOption(CURLOPT_USERAGENT, $this->userAgent);
+        $request->setOption(CURLOPT_POST, true);
+        $request->setOption(CURLOPT_POSTFIELDS, rtrim($data, "&"));
+
+        $response = $this->_executeRequest($request);
+
+        $response_array = json_decode($response["response"], true);
+        if (array_key_exists("access_token", $response_array)) {
+            $this->config["accessToken"] = $response_array["access_token"];
+        } else {
+            $this->_logAndThrow("Unable to refresh token. 'access_token' not found in response. ". print_r($response, true));
+        }
+
+        return $response;
+
+    }
+
     public function doRefreshToken()
     {
         $headers = [
