@@ -8,17 +8,17 @@
 
     <filter>
         <whitelist processUncoveredFilesFromWhitelist="true">
-            <directory suffix=".php">./AmazonAdvertisingApi</directory>
+            <directory suffix=".php">./src</directory>
         </whitelist>
     </filter>
 
     <testsuites>
-        <testsuite name="tests">
-            <directory suffix="Test.php">./tests</directory>
+        <testsuite name="amazon-advertising-php-sdk Test">
+            <directory suffix="Test.php">./test</directory>
         </testsuite>
 
-        <testsuite name="unit">
-            <directory suffix="Test.php">./tests/unit</directory>
+        <testsuite name="amazon-advertising-php-sdk Unit">
+            <directory suffix="Test.php">./test/unit</directory>
         </testsuite>
     </testsuites>
 </phpunit>

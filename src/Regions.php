@@ -1,6 +1,9 @@
 <?php
 namespace AmazonAdvertisingApi;
 
+/**
+ * Class Regions
+ */
 class Regions
 {
     // Advertising APIs are supported only in North America and Europe

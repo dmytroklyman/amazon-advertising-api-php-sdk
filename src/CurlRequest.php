@@ -1,11 +1,17 @@
 <?php
 namespace AmazonAdvertisingApi;
 
+/**
+ * Class CurlRequest
+ */
 class CurlRequest
 {
     private $handle = null;
     public $requestId = null;
 
+    /**
+     * CurlRequest constructor.
+     */
     public function __construct()
     {
         $this->reset();

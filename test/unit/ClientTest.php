@@ -1,6 +1,11 @@
 <?php
-namespace AmazonAdvertisingApi;
+namespace AmazonAdvertisingApiTest;
 
+use AmazonAdvertisingApi\Client;
+
+/**
+ * Class ClientTest
+ */
 class ClientTest extends \PHPUnit\Framework\TestCase
 {
     private $client = null;

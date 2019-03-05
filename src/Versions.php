@@ -1,6 +1,9 @@
 <?php
 namespace AmazonAdvertisingApi;
 
+/**
+ * Class Versions
+ */
 class Versions
 {
     public $versionStrings = [

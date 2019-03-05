@@ -1,6 +1,9 @@
 <?php
 namespace AmazonAdvertisingApi;
 
+/**
+ * Class Client
+ */
 class Client
 {
     private $config = [
@@ -23,6 +26,10 @@ class Client
 
     public $profileId = null;
 
+    /**
+     * Client constructor.
+     * @param array $config
+     */
     public function __construct($config)
     {
         $regions = new Regions();
@@ -92,6 +99,9 @@ class Client
 
     }
 
+    /**
+     * @return array
+     */
     public function doRefreshToken()
     {
         $headers = [
