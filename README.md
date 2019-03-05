@@ -1,10 +1,26 @@
+[![Total Downloads](https://poser.pugx.org/dmytroklyman/amazon-advertising-api-php-sdk/downloads)](https://packagist.org/packages/dmytroklyman/amazon-advertising-api-php-sdk)
+[![Build Status](https://api.travis-ci.org/dmytroklyman/amazon-advertising-api-php-sdk.png?branch=master)](http://travis-ci.org/dmytroklyman/amazon-advertising-api-php-sdk)
+
 ## Synopsis
 
-Official Amazon Advertising API PHP client library.
+Fork of official Amazon Advertising API PHP client library, that solves the problems of the official lib.
+
+In some cases Amazon Advertising API requires the usage of BigInt data type (ex. keyword ID, ad group ID etc.). As you know, PHP doesn't have BigInt data type. If you send such IDs as a string in request, you get an exception in response.
+
+This fork solves this problem and supports the JSON encoded parameters string in Client methods.
+
+To convert the strings into "BigInt" and generate the request parameters string, use the following regex:
+
+`preg_replace('/("\w+"):"(\d+)"/', '\\1:\\2', json_encode($params));`
+
+To convert the BigInt into string in response string, use the JSON_BIGINT_AS_STRING parameter in json_decode:
+
+`json_decode($response['response'], true, 512, JSON_BIGINT_AS_STRING);`
+
 
 ## Requirements
 
-PHP >= 5.3.0<br/>
+PHP >= 5.4.0<br/>
 cURL >= 7.18
 
 ## Documentation
